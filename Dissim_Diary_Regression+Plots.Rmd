@@ -1,0 +1,238 @@
+---
+title: "MIDUS: Modeling and Visualiztion of Neural Dissimilarity & Daily Diary"
+output: html_notebook
+---
+
+##Import Datafiles
+
+```{r}
+#pick one based on mac or windows
+midus <- read.csv("//datastore01.psy.miami.edu/Users/NPuccetti/Grad School/MANATEE/MIDUS/2019 Analysis/datafiles/fulldata_32919_V5.csv")
+midus <- read.csv("/Volumes/Users/NPuccetti/Grad School/MANATEE/MIDUS/2019 Analysis/datafiles/fulldata_32919_V5.csv")
+
+df <- midus
+library('ggplot2')
+```
+
+##Distributions and transformations:
+
+```{r}
+## Plot NA
+ggplot(data = df, aes(x = na_mean)) +
+      geom_histogram(fill='darkseagreen', bins = 20) +
+       labs(title="Distribution of mean NA", x = "mean NA")+
+      theme(plot.title=element_text(size = 16),
+           axis.title.x=element_text(size = 16),
+           axis.title.y=element_text(size = 16),
+           axis.text.y=element_text(size = 16),
+           axis.text.x=element_text(size = 16))
+
+## transform NA
+midus$na_mean_trsf <- sqrt(midus$na_mean)
+
+##replot new NA variable 
+ggplot(data = midus, aes(x = na_mean_trsf)) +
+      geom_histogram(fill='darkseagreen4', bins = 20) +
+       labs(title="Distribution of transformed mean NA", x = "mean NA, square root transformed")+
+      theme(plot.title=element_text(size = 16),
+           axis.title.x=element_text(size = 16),
+           axis.title.y=element_text(size = 16),
+           axis.text.y=element_text(size = 16),
+           axis.text.x=element_text(size = 16))
+```
+
+```{r}
+ggplot(data = df, aes(x = pa_mean)) +
+      geom_histogram(fill='violetred1', bins = 20) +
+      labs(title="Distribution of mean PA", x = "mean PA")+
+      theme(plot.title = element_text(size = 16),
+           axis.title.x=element_text(size = 16),
+           axis.title.y=element_text(size = 16),
+           axis.text.y=element_text(size = 16),
+           axis.text.x=element_text(size = 16))
+
+ggplot(data = df, aes(x = sr_na_slope)) +
+      geom_histogram(fill='deepskyblue4', bins = 20) +
+      labs(title="Distribution of Stress Reactivity", x = "Stress Reactivity")+
+      theme(plot.title = element_text(size = 16),
+           axis.title.x=element_text(size = 16),
+           axis.title.y=element_text(size = 16),
+           axis.text.y=element_text(size = 16),
+           axis.text.x=element_text(size = 16))
+```
+
+# Regression model and plot for mean NA & transformed mean NA
+
+```{r}
+NA_model <- lm(midus$na_mean ~ midus$diary_days + midus$neg_f3.neg_nf_Lamyg + midus$neu_f3.neu_nf_Lamyg + midus$age + midus$gender)
+summary(NA_model)
+
+NA_trsf_model <- lm(midus$na_mean_trsf ~ midus$diary_days + midus$neg_f3.neg_nf_Lamyg + midus$neu_f3.neu_nf_Lamyg + midus$age + midus$gender)
+summary(NA_trsf_model)
+```
+
+```{r}
+df = midus
+# create multiple linear model
+lm_fit <- lm(na_mean ~ neg_f3.neg_nf_Lamyg + neu_f3.neu_nf_Lamyg + diary_days + age + gender, data=df)
+summary(lm_fit)
+# save predictions of the model in the new data frame together with variable you want to plot against
+predicted_df <- data.frame(namean_pred = predict(lm_fit, df), dissim=df$neg_f3.neg_nf_Lamyg)
+# this is the predicted line of multiple linear regression
+p <-  ggplot(data = df, aes(x = neg_f3.neg_nf_Lamyg, y = na_mean)) + 
+  geom_point(color='darkslategray3',size = 3.5) +
+  geom_smooth(color='darkslategray4',size = 2.5, method = "lm", data = predicted_df, aes(x=dissim, y=namean_pred)) +
+  labs(title="Amygdala persistence predicts real-world mean NA", y = 'mean NA', x = "Dissimilarty (More Dissim = Less Persistence)") +
+  theme_gray()
+ p + theme(plot.title=element_text(size = 18),
+           axis.title.x=element_text(size = 18),
+           axis.title.y=element_text(size = 18),
+           axis.text.y=element_text(size = 18),
+           axis.text.x=element_text(size = 18))
+ 
+lm_fit <- lm(na_mean_trsf ~ neg_f3.neg_nf_Lamyg + neu_f3.neu_nf_Lamyg + diary_days + age + gender, data=df)
+summary(lm_fit)
+# save predictions of the model in the new data frame together with variable you want to plot against
+predicted_df <- data.frame(namean_pred = predict(lm_fit, df), dissim=df$neg_f3.neg_nf_Lamyg)
+# this is the predicted line of multiple linear regression
+p <-  ggplot(data = df, aes(x = neg_f3.neg_nf_Lamyg, y = na_mean_trsf)) + 
+  geom_point(color='darkslategray3',size = 3.5) +
+  geom_smooth(color='darkslategray4',size = 2.5, method = "lm", data = predicted_df, aes(x=dissim, y=namean_pred)) +
+  labs(title="Amygdala persistence predicts real-world mean NA (transformed)", y = 'transformed mean NA', x = "Dissimilarty (More Dissim = Less Persistence)") +
+  theme_gray()
+ p + theme(plot.title=element_text(size = 18),
+           axis.title.x=element_text(size = 18),
+           axis.title.y=element_text(size = 18),
+           axis.text.y=element_text(size = 18),
+           axis.text.x=element_text(size = 18))
+ 
+ ##for poster
+ p <-  ggplot(data = df, aes(x = neg_f3.neg_nf_Lamyg, y = na_mean_trsf)) + 
+  geom_point(color='plum3',size = 7.5) +
+  geom_smooth(color='plum4',size = 5, method = "lm", data = predicted_df, aes(x=dissim, y=namean_pred)) +
+  theme_gray()
+ p + theme(
+           axis.title.x=element_blank(),
+           axis.title.y=element_blank(),
+           axis.text.y=element_text(size = 42),
+           axis.text.x=element_text(size = 42))
+ 
+
+```
+
+ ## Positive Affect 
+```{r}
+mod2.5 <- lm(midus$pa_mean ~ midus$diary_days + midus$neg_f3.neg_nf_Lamyg + midus$neu_f3.neu_nf_Lamyg + midus$age + midus$gender)
+summary(mod2.5)
+
+lm_fit1 <- lm(pa_mean ~ neg_f3.neg_nf_Lamyg + neu_f3.neu_nf_Lamyg + diary_days + age + gender, data=df)
+summary(lm_fit1)
+# save predictions of the model in the new data frame together with variable you want to plot against
+predicted_df <- data.frame(pamean_pred = predict(lm_fit1, df), dissim=df$neg_f3.neg_nf_Lamyg)
+# this is the predicted line of multiple linear regression
+p <-  ggplot(data = df, aes(x = neg_f3.neg_nf_Lamyg, y = pa_mean)) + 
+  geom_point(color='pink2',size = 7.5) +
+  geom_smooth(color='pink3',size = 5, method = "lm", data = predicted_df, aes(x=dissim, y=pamean_pred)) +
+  theme_gray()
+p + theme(axis.title.x=element_blank(),
+          axis.title.y=element_blank(),
+          axis.text.y=element_text(size = 42),
+          axis.text.x=element_text(size = 42))
+
+```
+
+ ## Stress Reactivity
+```{r}
+midus$sr_na_slope_trsf <- sqrt(midus$sr_na_slope)
+midus$sr_na_slope_trsf2 <- log(midus$sr_na_slope + 1)
+hist(midus$sr_na_slope)
+hist(midus$sr_na_slope_trsf)
+hist(midus$sr_na_slope_trsf2)
+
+mod3.5 <- lm(midus$sr_na_slope ~ midus$diary_days + midus$neg_f3.neg_nf_Lamyg + midus$neu_f3.neu_nf_Lamyg + midus$age + midus$gender)
+summary(mod3.5)
+
+mod3.75 <- lm(midus$sr_na_slope_trsf ~ midus$diary_days + midus$neg_f3.neg_nf_Lamyg + midus$neu_f3.neu_nf_Lamyg + midus$age + midus$gender)
+summary(mod3.75)
+
+
+lm_fit1 <- lm(sr_na_slope ~ neg_f3.neg_nf_Lamyg + neu_f3.neu_nf_Lamyg + diary_days + age + gender, data=df)
+summary(lm_fit1)
+
+# save predictions of the model in the new data frame 
+# together with variable you want to plot against
+#predicted_df <- data.frame(mpg_pred = predict(lm_fit, df), hp=df$hp)
+predicted_df <- data.frame(naslope_pred = predict(lm_fit1, df), dissim=df$neg_f3.neg_nf_Lamyg)
+
+# this is the predicted line of multiple linear regression
+#ggplot(data = df, aes(x = mpg, y = hp)) + 
+#  geom_point(color='blue') +
+#  geom_line(color='red',data = predicted_df, aes(x=mpg_pred, y=hp))
+p <-  ggplot(data = df, aes(x = neg_f3.neg_nf_Lamyg, y = sr_na_slope)) + 
+  geom_point(color='steelblue3',size = 7.5) +
+  geom_smooth(color='steelblue4',size = 5, method = "lm", data = predicted_df, aes(x=dissim, y=naslope_pred)) +
+  #xlab("Dissimiliarity") + # for the x axis label
+  #ylab("Negative Affect") + # for the y axis label
+  theme_gray()
+p + theme(axis.title.x=element_blank(),
+          axis.title.y=element_blank(),
+          axis.text.y=element_text(size = 42),
+          axis.text.x=element_text(size = 42))
+
+```
+
+
+## ERQ-Reappraisal
+### subset of the data
+```{r}
+midus <- read.csv("/Volumes/Users/NPuccetti/Grad School/MANATEE/MIDUS/2019 Analysis/datafiles/fulldata_33119_V6.csv")
+df <- midus
+
+ggplot(data = df, aes(x = B5SER)) +
+      geom_histogram(fill='darkseagreen', bins = 12) +
+       labs(title="Distribution of trait Reappraisal", x = "Reappraisal subscale of Emotion Regulation Questionnaire")+
+      theme(plot.title=element_text(size = 16),
+           axis.title.x=element_text(size = 16),
+           axis.title.y=element_text(size = 16),
+           axis.text.y=element_text(size = 16),
+           axis.text.x=element_text(size = 16))
+
+dissim_ERQr <- lm(midus$B5SER~ neg_f3.neg_nf_Lamyg + neu_f3.neu_nf_Lamyg + diary_days + age + gender, data=df)
+summary(dissim_ERQr)
+
+dissim_ERQr <- lm(midus$B5SER ~ pa_mean, data=df)
+summary(dissim_ERQr)
+
+dissim_ERQ3r <- lm(midus$B5SER03 ~ neg_f3.neg_nf_Lamyg, data=df)
+summary(dissim_ERQ3r)
+
+plot(df$neg_f3.neg_nf_Lamyg, df$B5SER)
+plot(df$na_mean, df$B5SER)
+plot(df$pa_mean, df$B5SER)
+
+#############FOR PLOTTING
+
+lm_fit1 <- lm(sr_na_slope ~ neg_f3.neg_nf_Lamyg + neu_f3.neu_nf_Lamyg + diary_days + age + gender, data=df)
+summary(lm_fit1)
+
+# save predictions of the model in the new data frame 
+# together with variable you want to plot against
+#predicted_df <- data.frame(mpg_pred = predict(lm_fit, df), hp=df$hp)
+predicted_df <- data.frame(naslope_pred = predict(lm_fit1, df), dissim=df$neg_f3.neg_nf_Lamyg)
+
+# this is the predicted line of multiple linear regression
+#ggplot(data = df, aes(x = mpg, y = hp)) + 
+#  geom_point(color='blue') +
+#  geom_line(color='red',data = predicted_df, aes(x=mpg_pred, y=hp))
+p <-  ggplot(data = df, aes(x = neg_f3.neg_nf_Lamyg, y = sr_na_slope)) + 
+  geom_point(color='steelblue3',size = 7.5) +
+  geom_smooth(color='steelblue4',size = 5, method = "lm", data = predicted_df, aes(x=dissim, y=naslope_pred)) +
+  #xlab("Dissimiliarity") + # for the x axis label
+  #ylab("Negative Affect") + # for the y axis label
+  theme_gray()
+p + theme(axis.title.x=element_blank(),
+          axis.title.y=element_blank(),
+          axis.text.y=element_text(size = 42),
+          axis.text.x=element_text(size = 42))
+```
+

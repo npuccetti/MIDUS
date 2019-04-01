@@ -1,0 +1,23 @@
+---
+title: "MIDUS P5 Data File"
+output: html_notebook
+---
+
+## Pulling relevant variables from the big P5 datafile (I do not think race is included in here unfortunately)
+
+```{r}
+## use foreign to read in the .sav file
+library(foreign)
+
+P1 <- read.spss('/Users/nikki/Desktop/M2_P1.sav')
+P1 <- as.data.frame(P1)
+
+P5 <- read.spss('/Users/nikki/Desktop/M2_P5.sav')
+P5 <- as.data.frame(P5)
+
+write.csv(P1, '/Users/nikki/Desktop/M2_P1.csv')
+write.csv(P5, '/Users/nikki/Desktop/M2_P5.csv')
+
+```
+
+
