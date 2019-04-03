@@ -516,7 +516,7 @@
     },
     {
       "toolbox": "Nipype",
-      "name": "io_SSHDataGrabber",
+      "name": "io_SSHDataGrabber_anat",
       "class": "io.SSHDataGrabber",
       "category": [
         "io"
@@ -680,8 +680,8 @@
         }
       ],
       "position": [
-        -1117.5303097877568,
-        -466.1809714771388
+        -1177.333349338538,
+        -464.7570823169826
       ],
       "code": [
         {
@@ -704,7 +704,7 @@
     },
     {
       "toolbox": "Nipype",
-      "name": "io_SSHDataGrabber_1",
+      "name": "io_SSHDataGrabber_EPI",
       "class": "io.SSHDataGrabber",
       "category": [
         "io"
@@ -868,8 +868,8 @@
         }
       ],
       "position": [
-        -1139.0055293190471,
-        -227.26846391439338
+        -1160.3637446510784,
+        -221.5729377913465
       ],
       "code": [
         {
@@ -2839,6 +2839,206 @@
       ],
       "web_url": "https://nipype.readthedocs.io/en/latest/interfaces/generated/interfaces.ants/registration.html#registration",
       "colour": "#bbc301"
+    },
+    {
+      "name": "io_SSHDataGrabber_MNItemp",
+      "class": "io.SSHDataGrabber",
+      "category": [
+        "io"
+      ],
+      "ports": [
+        {
+          "base": "hostname",
+          "editable": true,
+          "id": "7ddad30f-0909-4a80-9c94-bc5ad997c1ef",
+          "input": true,
+          "inputPort": "5a2a6c62-efa7-41e8-a1cf-cbc661fd76e8",
+          "name": "hostname",
+          "output": false,
+          "outputPort": false,
+          "value": "",
+          "visible": true,
+          "iterator": false
+        },
+        {
+          "base": "base_directory",
+          "editable": true,
+          "id": "cc446ee0-af89-433d-aa46-03e3d6b11937",
+          "input": true,
+          "inputPort": "bd14a226-bccd-411f-a96a-2a8a25a481f8",
+          "name": "base_directory",
+          "output": false,
+          "outputPort": false,
+          "value": "",
+          "visible": true,
+          "iterator": false
+        },
+        {
+          "base": "sort_filelist",
+          "editable": true,
+          "id": "d643dc09-cdf9-4ad3-b858-69f5c25369b6",
+          "input": true,
+          "inputPort": "f01db769-3b29-4504-95d6-72e2efc90343",
+          "name": "sort_filelist",
+          "output": false,
+          "outputPort": false,
+          "value": "",
+          "visible": true,
+          "iterator": false
+        },
+        {
+          "base": "template",
+          "editable": true,
+          "id": "e09ccb5f-5551-4f0d-aa4e-7ab05fa50bf8",
+          "input": true,
+          "inputPort": "c51ff2cf-b835-4e00-bb95-d74d17e7b223",
+          "name": "template",
+          "output": false,
+          "outputPort": false,
+          "value": "",
+          "visible": true,
+          "iterator": false
+        },
+        {
+          "base": "username",
+          "editable": true,
+          "id": "4da31ed3-470c-48b3-b838-3dfdc2aa1b7a",
+          "input": true,
+          "inputPort": "2ed6bcf2-4951-42db-a544-2b29dfee757b",
+          "name": "username",
+          "output": false,
+          "outputPort": false,
+          "value": "",
+          "visible": false,
+          "iterator": false
+        },
+        {
+          "base": "password",
+          "editable": true,
+          "id": "3bb8e5aa-e57b-4441-bcdf-84e2ee0cb0b1",
+          "input": true,
+          "inputPort": "4e2624ad-7e4d-49d5-9908-e5b305557543",
+          "name": "password",
+          "output": false,
+          "outputPort": false,
+          "value": "",
+          "visible": false,
+          "iterator": false
+        },
+        {
+          "base": "download_files",
+          "editable": true,
+          "id": "193bc058-fa09-4d38-8153-a4b34afdbfa1",
+          "input": true,
+          "inputPort": "ed604299-08c0-4c03-a8ca-6547cc2b8a84",
+          "name": "download_files",
+          "output": false,
+          "outputPort": false,
+          "value": "",
+          "visible": false,
+          "iterator": false
+        },
+        {
+          "base": "template_expression",
+          "editable": true,
+          "id": "0874c2dd-553a-46f7-8048-7a642f161414",
+          "input": true,
+          "inputPort": "b56c60e4-a6ec-4514-858d-1eb44b6ee419",
+          "name": "template_expression",
+          "output": false,
+          "outputPort": false,
+          "value": "",
+          "visible": false,
+          "iterator": false
+        },
+        {
+          "base": "ssh_log_to_file",
+          "editable": true,
+          "id": "3a441af7-fa61-446d-b6ae-691c3a842dd3",
+          "input": true,
+          "inputPort": "fc542585-bb9d-4251-a460-82ded95350ce",
+          "name": "ssh_log_to_file",
+          "output": false,
+          "outputPort": false,
+          "value": "",
+          "visible": false,
+          "iterator": false
+        },
+        {
+          "base": "raise_on_empty",
+          "editable": true,
+          "id": "fabb42a0-7e8a-40b2-86e3-ede035e3fefd",
+          "input": true,
+          "inputPort": "4b9932c2-5fbf-4382-9e3c-682ffb263008",
+          "name": "raise_on_empty",
+          "output": false,
+          "outputPort": false,
+          "value": "",
+          "visible": false,
+          "iterator": false
+        },
+        {
+          "base": "drop_blank_outputs",
+          "editable": true,
+          "id": "0fb2496c-4fa6-4dc0-bbda-def60118b9da",
+          "input": true,
+          "inputPort": "ee7403a3-6252-4072-a2de-56c8130a05bc",
+          "name": "drop_blank_outputs",
+          "output": false,
+          "outputPort": false,
+          "value": "",
+          "visible": false,
+          "iterator": false
+        },
+        {
+          "base": "template_args",
+          "editable": true,
+          "id": "f948807d-ef6f-41f8-884e-04f773c25652",
+          "input": true,
+          "inputPort": "315ec7fd-e887-4021-b7f8-990e498fe0a2",
+          "name": "template_args",
+          "output": false,
+          "outputPort": false,
+          "value": "",
+          "visible": false,
+          "iterator": false
+        },
+        {
+          "base": "out_file",
+          "editable": true,
+          "id": "cbf84415-5eea-4623-9195-fbcb181c0bf5",
+          "input": false,
+          "inputPort": false,
+          "name": "out_file",
+          "output": false,
+          "outputPort": false,
+          "value": "",
+          "visible": true,
+          "iterator": false
+        }
+      ],
+      "position": [
+        -40.0229789146988,
+        -546.8899072677399
+      ],
+      "code": [
+        {
+          "language": "Nipype",
+          "comment": "Extension of DataGrabber module that downloads the file list and",
+          "argument": {
+            "name": "io.SSHDataGrabber()",
+            "import": "import nipype.interfaces.io as io"
+          }
+        },
+        {
+          "language": "Docker",
+          "argument": {
+            "name": "io"
+          }
+        }
+      ],
+      "web_url": "https://nipype.readthedocs.io/en/latest/interfaces/generated/nipype.interfaces.io.html#sshdatagrabber",
+      "colour": "#fe334e"
     }
   ],
   "version": "v1"

@@ -14,10 +14,10 @@ import nipype.interfaces.ants as ants
 fsl_BET = pe.Node(interface = fsl.BET(), name='fsl_BET')
 
 #Extension of DataGrabber module that downloads the file list and
-io_SSHDataGrabber = pe.Node(interface = io.SSHDataGrabber(), name='io_SSHDataGrabber')
+io_SSHDataGrabber_anat = pe.Node(interface = io.SSHDataGrabber(), name='io_SSHDataGrabber_anat')
 
 #Extension of DataGrabber module that downloads the file list and
-io_SSHDataGrabber_1 = pe.Node(interface = io.SSHDataGrabber(), name='io_SSHDataGrabber_1')
+io_SSHDataGrabber_EPI = pe.Node(interface = io.SSHDataGrabber(), name='io_SSHDataGrabber_EPI')
 
 #Wraps the executable command ``3dUnifize``.
 afni_Unifize = pe.Node(interface = afni.Unifize(), name='afni_Unifize')
@@ -36,6 +36,9 @@ ants_RegistrationSynQuick_anat2epi = pe.Node(interface = ants.RegistrationSynQui
 
 #Wraps the executable command ``antsRegistration``.
 ants_Registration = pe.Node(interface = ants.Registration(), name='ants_Registration')
+
+#Extension of DataGrabber module that downloads the file list and
+io_SSHDataGrabber_MNItemp = pe.Node(interface = io.SSHDataGrabber(), name='io_SSHDataGrabber_MNItemp')
 
 #Create a workflow to connect all those nodes
 analysisflow = nipype.Workflow('MyWorkflow')
