@@ -1,0 +1,62 @@
+---
+title: "MIDUS: Multilevel Modeling of Daily Diary Data"
+output: html_notebook
+---
+
+## Import both the long diary data and the dissimilarity data
+```{r}
+#install.packages('lme4')
+#install.packages('lmerTest')
+library(lmerTest)
+library(lme4)
+library(foreign)
+
+midus <- read.csv("/Volumes/Users/NPuccetti/Grad School/MANATEE/MIDUS/2019 Analysis/datafiles/fulldata_33119_V6.csv")
+
+dd_long_full <- read.csv('/Volumes/Users/NPuccetti/Grad School/MANATEE/MIDUS/2019 Analysis/datafiles/NSDEII_long.csv')
+```
+
+## Now merge the two datasets
+```{r}
+#isolate vars of interest
+dd_long <- dd_long_full[,c(1:18)]
+
+mri <- as.data.frame(cbind(midus$subject, midus$neg_f3.neg_nf_Lamyg, midus$neu_f3.neu_nf_Lamyg, midus$gender, midus$age))
+colnames(mri) <- c("subject", "Neg_stimto3sface_Lamyg","Neu_stimto3sface_Lamyg","gender","age")
+
+#add cols to long form data
+dd_long[,c(19:23)] <- NA
+mri_dd_long <- dd_long
+
+subs <- mri$subject
+for (i in 1:length(subs)){
+  sub <- subs[i]
+  match <- which(mri_dd_long$M2ID == sub)
+  if (length(match) >= 1){
+    mri_dd_long[match,19:23] <- mri[i,c(1:5)]
+  }
+}
+
+colnames(mri_dd_long) <- c("X","M2ID" ,"B2DN_STR","B2DA_STR","B2DN_POS","B2DA_POS" , "B2DPOSAV" ,"B2DNEGAV" , "M2FAMNUM" , "SAMPLMAJ" , "B1PAGE_M2" ,"B1PGENDER" ,"B2DDAY" ,   "B2DIMON" , "B2DIYEAR" , "B2DMISS" ,  "B2DDAYT" ,  "B2DWEEKD" , "id", "neg_dissim", "neut_dissim", "gender", "age")
+
+mri_dd <- subset(mri_dd_long, mri_dd_long$neg_dissim <= 2)
+```
+
+# Now set up the MLM with affect as DV
+```{r}
+df <- mri_dd
+df$B2DNEGAV <- as.character(df$B2DNEGAV) 
+df$B2DNEGAV <- ifelse(df$B2DNEGAV == "NONE OF THE TIME",0,(ifelse(df$B2DNEGAV == "A LITTLE OF THE TIME",1,(ifelse(df$B2DNEGAV == "REFUSED/MISSING",NA,(ifelse(df$B2DNEGAV == "SOME OF THE TIME",2,df$B2DNEGAV)))))))
+df$B2DNEGAV <- as.numeric(df$B2DNEGAV)
+
+
+na_mlm <- lmer(B2DNEGAV ~ neg_dissim + neut_dissim + (1|M2ID), data = df, REML = FALSE)
+summary(na_mlm)
+
+na_mlm_full <- lmer(B2DNEGAV ~ neg_dissim + neut_dissim + neg_dissim*B2DN_ST + (1|M2ID), data = df,REML = FALSE)
+summary(na_mlm_full)
+
+
+```
+
+
