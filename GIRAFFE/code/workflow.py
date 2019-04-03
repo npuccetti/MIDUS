@@ -40,6 +40,21 @@ ants_Registration = pe.Node(interface = ants.Registration(), name='ants_Registra
 #Extension of DataGrabber module that downloads the file list and
 io_SSHDataGrabber_MNItemp = pe.Node(interface = io.SSHDataGrabber(), name='io_SSHDataGrabber_MNItemp')
 
+#Wraps the executable command ``3dTstat``.
+afni_TStat_scaleP1 = pe.Node(interface = afni.TStat(), name='afni_TStat_scaleP1')
+
+#Wraps the executable command ``3dcalc``.
+afni_Calc_scaleP2 = pe.Node(interface = afni.Calc(), name='afni_Calc_scaleP2')
+
+#Wraps the executable command ``fslreorient2std``.
+fsl_Reorient2Std = pe.Node(interface = fsl.Reorient2Std(), name='fsl_Reorient2Std')
+
+#Wraps the executable command ``fslreorient2std``.
+fsl_Reorient2Std_1 = pe.Node(interface = fsl.Reorient2Std(), name='fsl_Reorient2Std_1')
+
+#Wraps the executable command ``3dAutomask``.
+afni_Automask = pe.Node(interface = afni.Automask(), name='afni_Automask')
+
 #Create a workflow to connect all those nodes
 analysisflow = nipype.Workflow('MyWorkflow')
 analysisflow.connect(afni_TCat, "out_file", afni_Despike, "in_file")
@@ -48,6 +63,11 @@ analysisflow.connect(afni_Despike, "out_file", afni_Volreg, "in_file")
 analysisflow.connect(fsl_BET, "out_file", ants_RegistrationSynQuick_anat2epi, "fixed_image")
 analysisflow.connect(afni_Volreg, "out_file", ants_RegistrationSynQuick_anat2epi, "moving_image")
 analysisflow.connect(ants_RegistrationSynQuick_anat2epi, "warped_image", ants_Registration, "moving_image")
+analysisflow.connect(fsl_Reorient2Std, "out_file", afni_TCat, "in_files")
+analysisflow.connect(fsl_Reorient2Std_1, "out_file", afni_Unifize, "in_file")
+analysisflow.connect(ants_Registration, "warped_image", afni_Automask, "in_file")
+analysisflow.connect(afni_Automask, "out_file", afni_TStat_scaleP1, "in_file")
+analysisflow.connect(afni_TStat_scaleP1, "out_file", afni_Calc_scaleP2, "in_file_a")
 
 #Run the workflow
 plugin = 'MultiProc' #adjust your desired plugin here
