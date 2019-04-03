@@ -1,5 +1,14 @@
 {
-  "links": [],
+  "links": [
+    {
+      "from": "faa5be19-9ebc-4838-bcdf-571fcdb1c0cf",
+      "to": "22ed80b7-58a9-4384-878b-cf254fa660e0"
+    },
+    {
+      "from": "aa427acf-41d7-4703-ae3a-93c24a3167da",
+      "to": "5a52868"
+    }
+  ],
   "nodes": [
     {
       "toolbox": "Nipype",
@@ -1230,8 +1239,8 @@
         }
       ],
       "position": [
-        -847.2879356331719,
-        -199.34114927784304
+        -689.8614829964531,
+        -195.23436827198367
       ],
       "code": [
         {
@@ -1253,20 +1262,20 @@
       "colour": "#87e90e"
     },
     {
-      "name": "afni_TShift",
-      "class": "afni.TShift",
+      "name": "afni_TCat",
+      "class": "afni.TCat",
       "category": [
         "afni",
-        "preprocess"
+        "utils"
       ],
       "ports": [
         {
-          "base": "in_file",
+          "base": "in_files",
           "editable": true,
-          "id": "30181d61-e785-48f1-ad2a-a519047746fd",
+          "id": "d295a423-8260-4a0f-b77a-29a74c8f2263",
           "input": true,
-          "inputPort": "b0046159-c13a-4dfc-b823-d1ccd4d52016",
-          "name": "in_file",
+          "inputPort": "c19fc78b-e906-409c-9f60-807c8f7250a8",
+          "name": "in_files",
           "output": false,
           "outputPort": false,
           "value": "",
@@ -1276,114 +1285,10 @@
         {
           "base": "out_file",
           "editable": true,
-          "id": "9a9f897d-8e71-4b17-8a3f-39c3c96f032a",
+          "id": "b3f688db-873e-4a96-9644-4450867f0596",
           "input": true,
-          "inputPort": "eb6f7092-6232-4b98-b97e-d8f26209b928",
+          "inputPort": "c5fe61d1-e730-4fd4-b2c2-10e132b8224a",
           "name": "out_file",
-          "output": false,
-          "outputPort": false,
-          "value": "",
-          "visible": false,
-          "iterator": false
-        },
-        {
-          "base": "tr",
-          "editable": true,
-          "id": "759d0b76-6341-4a9d-a81f-b098979b2848",
-          "input": true,
-          "inputPort": "ee7b1743-5614-45ba-9366-fcb4ac7a06e2",
-          "name": "tr",
-          "output": false,
-          "outputPort": false,
-          "value": "",
-          "visible": false,
-          "iterator": false
-        },
-        {
-          "base": "tzero",
-          "editable": true,
-          "id": "7426cb10-8f82-4995-a583-f19f2a29c66d",
-          "input": true,
-          "inputPort": "a3883476-641d-46d7-a349-4e159e9f89af",
-          "name": "tzero",
-          "output": false,
-          "outputPort": false,
-          "value": "",
-          "visible": false,
-          "iterator": false
-        },
-        {
-          "base": "tslice",
-          "editable": true,
-          "id": "16f3917e-24b6-48f0-a3c4-f83a9462d1d9",
-          "input": true,
-          "inputPort": "9edfff1d-e0cd-47c8-80d0-bdecc188117f",
-          "name": "tslice",
-          "output": false,
-          "outputPort": false,
-          "value": "",
-          "visible": false,
-          "iterator": false
-        },
-        {
-          "base": "ignore",
-          "editable": true,
-          "id": "981c2697-4c6e-4c10-aeba-af89265149b5",
-          "input": true,
-          "inputPort": "e70a6d1e-5756-4c29-afde-8058b862bac4",
-          "name": "ignore",
-          "output": false,
-          "outputPort": false,
-          "value": "",
-          "visible": false,
-          "iterator": false
-        },
-        {
-          "base": "interp",
-          "editable": true,
-          "id": "3dcf61bc-286f-438e-99c0-adc878e4575c",
-          "input": true,
-          "inputPort": "9f88d891-0c7b-4ba6-8294-1a8da1cdf37f",
-          "name": "interp",
-          "output": false,
-          "outputPort": false,
-          "value": "",
-          "visible": false,
-          "iterator": false
-        },
-        {
-          "base": "tpattern",
-          "editable": true,
-          "id": "2050ffb0-75b8-4390-ada0-4962c56813c1",
-          "input": true,
-          "inputPort": "ef5a8c7e-500b-49f7-a1f5-be4f954da928",
-          "name": "tpattern",
-          "output": false,
-          "outputPort": false,
-          "value": "",
-          "visible": false,
-          "iterator": false
-        },
-        {
-          "base": "slice_timing",
-          "editable": true,
-          "id": "bb6e9226-0163-4faa-8d54-a992dda76c7d",
-          "input": true,
-          "inputPort": "a080c905-3acc-478a-a64c-7d6e05887210",
-          "name": "slice_timing",
-          "output": false,
-          "outputPort": false,
-          "value": "",
-          "visible": false,
-          "iterator": false
-        },
-        {
-          "base": "slice_encoding_direction",
-          "editable": true,
-          "id": "f7436412-e8b6-4250-bc3b-ee35bac0d54b",
-          "input": true,
-          "inputPort": "0b4e21a1-f361-45ce-83a6-0c8a4ee8cec9",
-          "name": "slice_encoding_direction",
           "output": false,
           "outputPort": false,
           "value": "",
@@ -1393,9 +1298,9 @@
         {
           "base": "rlt",
           "editable": true,
-          "id": "c522c408-0c96-4b92-94e0-aa0fc5a76c02",
+          "id": "b9aa6c39-a030-4a21-b9f0-fc16cd8a9941",
           "input": true,
-          "inputPort": "4ec51755-289a-47f7-9107-53d502f0c994",
+          "inputPort": "2d8e40f7-f52f-4d6a-9cec-4abde8770b4f",
           "name": "rlt",
           "output": false,
           "outputPort": false,
@@ -1404,12 +1309,12 @@
           "iterator": false
         },
         {
-          "base": "rltplus",
+          "base": "verbose",
           "editable": true,
-          "id": "a8f9beed-b40f-41a3-8788-f2f6232e81d3",
+          "id": "63060725-7ab0-4dde-ae0e-c7923d218944",
           "input": true,
-          "inputPort": "6745d11a-eb90-4651-bbe9-a6609672d6ed",
-          "name": "rltplus",
+          "inputPort": "49d8131a-5e7e-4710-a7ce-b47085e22411",
+          "name": "verbose",
           "output": false,
           "outputPort": false,
           "value": "",
@@ -1419,9 +1324,9 @@
         {
           "base": "num_threads",
           "editable": true,
-          "id": "12967873-e9ed-43d0-8a17-3e7c54801265",
+          "id": "9aa09241-fc6a-4e10-9658-fc99b172a79d",
           "input": true,
-          "inputPort": "d7e83a82-2d76-43f1-b9fe-02c756dd24ca",
+          "inputPort": "6b8264f1-0564-410b-a3a9-9032390bd013",
           "name": "num_threads",
           "output": false,
           "outputPort": false,
@@ -1432,9 +1337,9 @@
         {
           "base": "outputtype",
           "editable": true,
-          "id": "0b528f71-4abf-4af6-9d34-8764cdf1071d",
+          "id": "c128c4ab-500d-46f3-8e73-fa29b729ffcd",
           "input": true,
-          "inputPort": "4fd45d33-03ca-4bf0-8c33-bc67c6a41dd6",
+          "inputPort": "ac685945-25e3-47c5-896a-05ae939dc26d",
           "name": "outputtype",
           "output": false,
           "outputPort": false,
@@ -1445,9 +1350,9 @@
         {
           "base": "args",
           "editable": true,
-          "id": "a86c2eab-3a83-4c59-a527-560b2daa4f38",
+          "id": "e517f5d4-904d-4c42-b5fb-cb38bd58add9",
           "input": true,
-          "inputPort": "e7987716-449d-4351-ae95-5013c25924ac",
+          "inputPort": "aa12558c-642d-40f5-a6f0-df4a6e1ba101",
           "name": "args",
           "output": false,
           "outputPort": false,
@@ -1458,9 +1363,9 @@
         {
           "base": "environ",
           "editable": true,
-          "id": "e5a517b9-1769-42d0-9268-ae5a49e73f25",
+          "id": "710a8312-6f47-41b2-a632-1c028b2b1150",
           "input": true,
-          "inputPort": "de24a9fb-2c30-433a-8cbe-3c01701f243e",
+          "inputPort": "a932fc7a-beb4-4e8c-b07a-d68ef63b190c",
           "name": "environ",
           "output": false,
           "outputPort": false,
@@ -1469,42 +1374,29 @@
           "iterator": false
         },
         {
-          "base": "timing_file",
-          "editable": false,
-          "id": "e6efce19-dd7a-4c90-b785-6d9e3a762827",
-          "input": false,
-          "inputPort": false,
-          "name": "timing_file",
-          "output": true,
-          "outputPort": "3b7a021f-0d45-4124-86f7-baa56feb127a",
-          "value": "",
-          "visible": true,
-          "iterator": false
-        },
-        {
           "base": "out_file",
           "editable": false,
-          "id": "557cb314-4995-49ff-b006-fefdd00ae544",
+          "id": "d93d78ed-aabe-42cf-8534-a57f15dfffab",
           "input": false,
           "inputPort": false,
           "name": "out_file",
           "output": true,
-          "outputPort": "ba3b6acf-d1a2-4ad1-af2f-5d964f6a3890",
+          "outputPort": "faa5be19-9ebc-4838-bcdf-571fcdb1c0cf",
           "value": "",
           "visible": true,
           "iterator": false
         }
       ],
       "position": [
-        -665.4082498152331,
-        -212.74280638233523
+        -850.2936761271337,
+        -196.48335165928648
       ],
       "code": [
         {
           "language": "Nipype",
-          "comment": "Wraps the executable command ``3dTshift``.",
+          "comment": "Wraps the executable command ``3dTcat``.",
           "argument": {
-            "name": "afni.TShift()",
+            "name": "afni.TCat()",
             "import": "import nipype.interfaces.afni as afni"
           }
         },
@@ -1515,8 +1407,8 @@
           }
         }
       ],
-      "web_url": "https://nipype.readthedocs.io/en/latest/interfaces/generated/interfaces.afni/preprocess.html#tshift",
-      "colour": "#87e90e"
+      "web_url": "https://nipype.readthedocs.io/en/latest/interfaces/generated/interfaces.afni/utils.html#tcat",
+      "colour": "#96e008"
     }
   ],
   "version": "v1"

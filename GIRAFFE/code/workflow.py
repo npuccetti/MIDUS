@@ -24,12 +24,13 @@ afni_Unifize = pe.Node(interface = afni.Unifize(), name='afni_Unifize')
 #Wraps the executable command ``3dDespike``.
 afni_Despike = pe.Node(interface = afni.Despike(), name='afni_Despike')
 
-#Wraps the executable command ``3dTshift``.
-afni_TShift = pe.Node(interface = afni.TShift(), name='afni_TShift')
+#Wraps the executable command ``3dTcat``.
+afni_TCat = pe.Node(interface = afni.TCat(), name='afni_TCat')
 
 #Create a workflow to connect all those nodes
 analysisflow = nipype.Workflow('MyWorkflow')
-
+analysisflow.connect(afni_TCat, "out_file", afni_Despike, "in_file")
+analysisflow.connect(afni_Unifize, "out_file", fsl_BET, "in_file")
 
 #Run the workflow
 plugin = 'MultiProc' #adjust your desired plugin here
